@@ -10,7 +10,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Cargar el FXML desde la ruta correcta
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/uniquindio/edu/co/poo/parcial02/principal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/uniquindio/edu/co/poo/parcial02/Principal.fxml"));
 
         // O si está en resources, usa esta ruta:
         // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/principal.fxml"));

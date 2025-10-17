@@ -30,8 +30,8 @@ public class RegistrarController {
     @FXML
     private ComboBox<String> cbTipo;
 
-    @FXML
-    private VBox contenedorPrincipal; // Referencia corregida
+    // @FXML
+    // private VBox contenedorPrincipal;
 
     private SistemaInmobiliarioFacade sistemaInmobiliario;
 
@@ -82,29 +82,33 @@ public class RegistrarController {
         }
     }
 
-
-    private void cargarVista(String rutaFXML) {
+    @FXML
+    private void onVolver() {
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource(rutaFXML));
-            Parent vista = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/parcial02/Principal.fxml"
+            ));
+            Parent vistaPrincipal = loader.load();
 
-            // CORRECCIÓN: contenedorPrincipal (sin la 'd' extra)
-            if (contenedorPrincipal != null) {
-                contenedorPrincipal.getChildren().clear();
-                contenedorPrincipal.getChildren().add(vista);
+            // Obtener la escena actual desde cualquier componente
+            javafx.scene.Scene escenaActual = txtPrecio.getScene();
+
+            if (escenaActual != null) {
+                escenaActual.setRoot(vistaPrincipal);
             } else {
-                System.err.println("Error: contenedorPrincipal es null");
-                mostrarAlerta("Error", "No se pudo cargar la vista: contenedor no disponible", AlertType.ERROR);
+                mostrarAlerta("Error", "No se pudo volver al menú principal", AlertType.ERROR);
             }
 
         } catch (IOException e) {
-            mostrarAlerta("Error", "No se pudo cargar la vista: " + rutaFXML, AlertType.ERROR);
+            mostrarAlerta("Error", "No se pudo cargar la vista principal: " + e.getMessage(), AlertType.ERROR);
             e.printStackTrace();
         } catch (NullPointerException e) {
-            mostrarAlerta("Error", "Recurso no encontrado: " + rutaFXML, AlertType.ERROR);
+            mostrarAlerta("Error", "Archivo principal.fxml no encontrado", AlertType.ERROR);
             e.printStackTrace();
         }
     }
+
+ // private void cargarVista(String rutaFXML) { ... }
 
     private boolean validarCampos() {
         StringBuilder errores = new StringBuilder();
@@ -187,10 +191,7 @@ public class RegistrarController {
         alerta.showAndWait();
     }
 
-    // Método para establecer el contenedor principal si es necesario
-    public void setContenedorPrincipal(VBox contenedorPrincipal) {
-        this.contenedorPrincipal = contenedorPrincipal;
-    }
+    // public void setContenedorPrincipal(VBox contenedorPrincipal) { ... }
 
     // Getters para testing
     public TextField getTxtPrecio() {
@@ -212,37 +213,4 @@ public class RegistrarController {
     public ComboBox<String> getCbTipo() {
         return cbTipo;
     }
-
-    @FXML
-    private void onVolver() {
-        try {
-            // Cargar la vista principal
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/org/uniquindio/edu/co/poo/parcial02/Principal.fxml"
-            ));
-            Parent vistaPrincipal = loader.load();
-
-            // Obtener la escena actual desde el contenedor principal
-            javafx.scene.Scene escenaActual = contenedorPrincipal.getScene();
-
-            // Transición suave
-            vistaPrincipal.setOpacity(0);
-            escenaActual.setRoot(vistaPrincipal);
-
-            javafx.animation.FadeTransition ft = new javafx.animation.FadeTransition(javafx.util.Duration.millis(300), vistaPrincipal);
-            ft.setFromValue(0);
-            ft.setToValue(1);
-            ft.play();
-
-        } catch (IOException e) {
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error al volver");
-            alerta.setHeaderText("No se pudo cargar la vista principal");
-            alerta.setContentText("Verifica que el archivo Principal.fxml esté en la ruta correcta.");
-            alerta.showAndWait();
-            e.printStackTrace();
-        }
-    }
-
-
 }
