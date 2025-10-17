@@ -10,88 +10,45 @@ public class InmuebleFactory {
         // Patrón Factory Method - Creación de objetos basada en el tipo
         switch (tipo) {
             case CASA:
-                return new Casa(precio, ciudad, numHabitaciones, numPisos);
+                return new Casa.Builder()
+                        .setCiudad(ciudad)
+                        .setNumHabitaciones(numHabitaciones)
+                        .setNumPisos(numPisos)
+                        .setPrecio(precio)
+                        .build();
+
             case APARTAMENTO:
-                return new Apartamento(precio, ciudad, numHabitaciones, numPisos);
+                return new Apartamento.Builder()
+                        .setCiudad(ciudad)
+                        .setNumHabitaciones(numHabitaciones)
+                        .setNumPisos(numPisos)
+                        .setPrecio(precio)
+                        .build();
+
             case FINCA:
-                return new Finca(precio, ciudad, numHabitaciones, numPisos);
+                return new Finca.Builder()
+                        .setCiudad(ciudad)
+                        .setNumHabitaciones(numHabitaciones)
+                        .setNumPisos(numPisos)
+                        .setPrecio(precio)
+                        .build();
+
             case LOCAL:
-                return new Local(precio, ciudad, numHabitaciones, numPisos);
+                return new Local.Builder()
+                        .setCiudad(ciudad)
+                        .setNumHabitaciones(numHabitaciones)
+                        .setNumPisos(numPisos)
+                        .setPrecio(precio)
+                        .build();
+
             default:
                 throw new IllegalArgumentException("Tipo de inmueble no válido: " + tipo);
         }
     }
 }
 
-// Clases concretas para cada tipo de inmueble
-class Casa extends Inmueble {
-    private String ciudad;
-    private int numHabitaciones;
-    private int numPisos;
 
-    public Casa(double precio, String ciudad, int numHabitaciones, int numPisos) {
-        this.precio = precio;
-        this.ciudad = ciudad;
-        this.numHabitaciones = numHabitaciones;
-        this.numPisos = numPisos;
-    }
 
-    // Getters y setters
-    public String getCiudad() { return ciudad; }
-    public int getNumHabitaciones() { return numHabitaciones; }
-    public int getNumPisos() { return numPisos; }
-}
 
-class Apartamento extends Inmueble {
-    private String ciudad;
-    private int numHabitaciones;
-    private int numPisos;
 
-    public Apartamento(double precio, String ciudad, int numHabitaciones, int numPisos) {
-        this.precio = precio;
-        this.ciudad = ciudad;
-        this.numHabitaciones = numHabitaciones;
-        this.numPisos = numPisos;
-    }
 
-    // Getters y setters
-    public String getCiudad() { return ciudad; }
-    public int getNumHabitaciones() { return numHabitaciones; }
-    public int getNumPisos() { return numPisos; }
-}
-
-class Finca extends Inmueble {
-    private String ciudad;
-    private int numHabitaciones;
-    private int numPisos;
-
-    public Finca(double precio, String ciudad, int numHabitaciones, int numPisos) {
-        this.precio = precio;
-        this.ciudad = ciudad;
-        this.numHabitaciones = numHabitaciones;
-        this.numPisos = numPisos;
-    }
-
-    // Getters y setters
-    public String getCiudad() { return ciudad; }
-    public int getNumHabitaciones() { return numHabitaciones; }
-    public int getNumPisos() { return numPisos; }
-}
-
-class Local extends Inmueble {
-    private String ciudad;
-    private int numHabitaciones;
-    private int numPisos;
-
-    public Local(double precio, String ciudad, int numHabitaciones, int numPisos) {
-        this.precio = precio;
-        this.ciudad = ciudad;
-        this.numHabitaciones = numHabitaciones;
-        this.numPisos = numPisos;
-    }
-
-    // Getters y setters
-    public String getCiudad() { return ciudad; }
-    public int getNumHabitaciones() { return numHabitaciones; }
-    public int getNumPisos() { return numPisos; }
-}
